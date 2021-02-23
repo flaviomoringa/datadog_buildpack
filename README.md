@@ -17,7 +17,7 @@ https://docs.datadoghq.com/tracing/setup_overview/setup/java/?tab=otherenvironme
 
 ```
 cf push -f manifest-alpha.yml \ 
-  -b https://github.com/lmmendes/datadog_buildpack.git  \
+  -b https://github.com/flaviomoringa/datadog_buildpack.git  \
   -b datadog_application_monitoring \
   -b java_buildpack
 ```

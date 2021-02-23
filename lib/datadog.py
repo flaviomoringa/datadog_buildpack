@@ -37,7 +37,7 @@ def get_defaults(appinfo, service):
             'DD_LOGS_ENABLED': 'true',
             'DD_LOGS_INJECTION': 'true',
             'DD_TRACE_ANALYTICS_ENABLED': 'true',
-            'DD_ENABLE_CHECKS': 'false',
+            'DD_ENABLE_CHECKS': 'true',
             'DD_PROPAGATION_STYLE_INJECT': 'Datadog,B3',
             'STD_LOG_COLLECTION_PORT': logs_port,
             'LOGS_CONFIG': json.dumps([{"type": "tcp", "port": logs_port, "source": "pcf", "service": app, "log_processing_rules":[{"type":"exclude_at_match","name":"exclude_logs","pattern":"(stats.go|serializer.go|runner.go|tailer.go)"}]}]),

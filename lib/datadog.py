@@ -22,6 +22,8 @@ def get_defaults(appinfo, service):
     app = appinfo.get('application_name', '')
     space = appinfo.get('space_name', '')
     org = appinfo.get('organization_name', '')
+    if org != '': org = "dh-io-" + org
+    tenant = os.environ.get('TENANT', org) 
     detected_version = find_version()
     version = os.environ.get('DD_VERSION', detected_version if detected_version is not None else 1)
     logs_port = os.environ.get('STD_LOG_COLLECTION_PORT', '10514')
@@ -38,11 +40,11 @@ def get_defaults(appinfo, service):
             'DD_ENABLE_CHECKS': 'false',
             'DD_PROPAGATION_STYLE_INJECT': 'Datadog,B3',
             'STD_LOG_COLLECTION_PORT': logs_port,
-            'LOGS_CONFIG': json.dumps([{"type": "tcp", "port": logs_port, "source": "pcf", "service": app}]),
+            'LOGS_CONFIG': json.dumps([{"type": "tcp", "port": logs_port, "source": "pcf", "service": app, "log_processing_rules":[{"type":"exclude_at_match","name":"exclude_logs","pattern":"(stats.go|serializer.go|runner.go|tailer.go)"}]}]),
             }
     default_tags = {
             'service': app,
-            'tenant': org,
+            'tenant': tenant,
             'version': version,
             }
     return (defaults, default_tags)
